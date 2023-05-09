@@ -1,9 +1,8 @@
 import onnxruntime as ort
-from flask import request, Response, Flask
+from flask import request, Flask, jsonify
 from waitress import serve
 from PIL import Image
 import numpy as np
-import json
 
 app = Flask(__name__)
 
@@ -33,7 +32,7 @@ def detect():
     """
     buf = request.files["image_file"]
     boxes = detect_objects_on_image(buf.stream)
-    return Response(json.dumps(boxes),  mimetype='application/json')
+    return jsonify(boxes)
 
 
 def detect_objects_on_image(buf):
