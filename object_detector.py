@@ -74,7 +74,7 @@ def run_model(input):
     :param input: Numpy array in a shape (3,width,height)
     :return: Raw output of YOLOv8 network as an array of shape (1,84,8400)
     """
-    model = ort.InferenceSession("yolov8m.onnx")
+    model = ort.InferenceSession("yolov8m.onnx", providers=['CPUExecutionProvider'])
     outputs = model.run(["output0"], {"images":input})
     return outputs[0]
 
